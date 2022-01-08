@@ -1,0 +1,26 @@
+.loader {
+    background: linear-gradient(
+        80deg,
+        #f06844,
+        #ee4c54,
+        #d45e95,
+        #9c6ca6,
+        #6583c1
+    );
+    background-clip: border;
+    -webkit-background-clip: border;
+    -webkit-text-fill-color: transparent;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

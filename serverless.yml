@@ -1,0 +1,25 @@
+service: pkgfinder-api
+frameworkVersion: '2 || 3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: '20201221'
+  region: us-west-1
+
+functions:
+  app:
+    handler: api/serverless.handler
+    events:
+      - http: 'GET /{param}'
+
+custom:
+  customDomain:
+    domainName: api.pkgfinder.org
+    endpointType: "regional"
+    basePath: ''
+    createRoute53Record: true
+
+plugins:
+  - serverless-offline
+  - serverless-domain-manager
