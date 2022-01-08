@@ -1,5 +1,6 @@
 async function getResponse(url) {
     try {
+        // eslint-disable-next-line no-undef
         let response = await axios.get(url);
         return response;
     } catch (error) {

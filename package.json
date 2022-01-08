@@ -7,12 +7,12 @@
         "dev": "nodemon api/server.js",
         "dev:serverless": "sls offline start",
         "deploy:serverless": "sls deploy",
-        "createDomain": "sls create_domain",
+        "create-domain": "sls create_domain",
         "deploy:heroku": "git push heroku main",
         "format": "prettier --write --ignore-unknown '{tests,src}/**/*{.js,.ts,.html,.css,.json}'",
         "lint": "eslint src",
         "test": "jest --coverage tests",
-        "pre-commit": "husky install && husky add .husky/pre-commit 'npm run format' && husky add .husky/pre-commit 'npm run lint' && husky add .husky/pre-commit 'npm run test'",
+        "pre-commit": "husky install",
         "release": "gh-pages -d src"
     },
     "repository": {
