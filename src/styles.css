@@ -283,7 +283,7 @@ body {
     margin: 0;
 }
 
-.body-content {
+#root {
     flex: 1 auto;
 }
 
