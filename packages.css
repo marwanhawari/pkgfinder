@@ -1,0 +1,24 @@
+/* Package overflow */
+.pkg:not(.inactive) .pkg-contents:before {
+    background: linear-gradient(var(--overflow) 190px, var(--background));
+}
+
+/* Package links */
+.pkg .pkg-link {
+    color: var(--border);
+}
+.pkg .pkg-link:active {
+    transform: translateY(1px);
+    transform: translateX(1px);
+    box-shadow: 1px 1px 3px 0px var(--border);
+}
+
+/* Package cards */
+.pkg:not(.inactive) {
+    background-color: var(--background);
+    border-color: var(--border);
+    box-shadow: var(--pkg-shadow) var(--border);
+}
+.pkg:not(.inactive) * {
+    background-color: transparent;
+}
