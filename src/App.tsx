@@ -43,6 +43,16 @@ export default function App() {
     const loaderRef = useRef<HTMLDivElement>(null);
     const searchBarRef = useRef<HTMLInputElement>(null);
 
+    function handleInput() {
+        let searchQuery;
+        if (searchBarRef.current != null) {
+            searchQuery = searchBarRef.current.value;
+            if (searchQuery.includes(" ")) {
+                searchBarRef.current.value = searchQuery.replace(/\s/g, "");
+            }
+        }
+    }
+
     async function handleSubmit(event: any) {
         event.preventDefault();
 
@@ -62,7 +72,6 @@ export default function App() {
 
         // Make the async HTTP request
         let apiResponse = await getResponse(apiURL);
-        console.log(apiResponse);
         if (!apiResponse) {
             apiResponse = {
                 config: {},
@@ -137,6 +146,7 @@ export default function App() {
                     autoComplete="off"
                     placeholder="Search"
                     ref={searchBarRef}
+                    onInput={handleInput}
                 />
                 <div
                     className="loader"
