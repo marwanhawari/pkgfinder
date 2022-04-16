@@ -9,11 +9,17 @@ on:
   pull_request:
 
 jobs:
-  test:
+  release:
     runs-on: ubuntu-latest
+
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      DOCKER_IMAGE: ${{ github.repository }}
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
@@ -21,10 +27,19 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run test
+    
     - name: Publish on gh-pages branch
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
         npm run build && echo '${{ secrets.CNAME }}' > ./dist/CNAME && npm run release -- -u "${{ secrets.GIT_USER }} <${{ secrets.GIT_EMAIL }}>"
-    
+
+    - name: Login to the Docker container registry
+      run: echo $DOCKERHUB_TOKEN | docker login --username $DOCKERHUB_USERNAME --password-stdin
+    - name: Build the API Docker image
+      run: docker build -f Dockerfiles/api/Dockerfile -t $DOCKER_IMAGE-api:latest .
+    - name: Build the UI Docker image
+      run: docker build -f Dockerfiles/ui/Dockerfile -t $DOCKER_IMAGE-ui:latest .
+    - name: Push the Docker image to the container registry
+      run: docker push --all-tags $DOCKER_IMAGE-api && docker push --all-tags $DOCKER_IMAGE-ui

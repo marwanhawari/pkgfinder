@@ -4,9 +4,9 @@
     "description": "A website for searching popular package registries like npm, pypi, and homebrew.",
     "scripts": {
         "start": "export NODE_ENV=production && node api/server.js",
-        "dev": "vite",
         "build": "tsc && vite build",
         "preview": "vite preview",
+        "dev": "vite",
         "dev:backend": "nodemon api/server.js",
         "dev:serverless": "sls offline start",
         "deploy:serverless": "sls deploy",

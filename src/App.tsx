@@ -68,7 +68,10 @@ export default function App() {
             searchQuery = searchBarRef.current.value;
         }
 
-        let apiURL = `https://api.pkgfinder.org/${searchQuery}`;
+        let apiBaseURL =
+            import.meta.env.VITE_API_URL || `https://api.pkgfinder.org`;
+
+        let apiURL = `${apiBaseURL}/${searchQuery}`;
 
         // Make the async HTTP request
         let apiResponse = await getResponse(apiURL);
