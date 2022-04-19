@@ -1,0 +1,30 @@
+services:
+  reverse-proxy:
+    image: caddy:2.4.6
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_config:/config
+      - caddy_data:/data
+    depends_on:
+      - ui
+      - api
+  ui:
+    image: marwanhawari/pkgfinder-ui
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+  api:
+    image: marwanhawari/pkgfinder-api
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+
+volumes:
+  caddy_data:
+  caddy_config:

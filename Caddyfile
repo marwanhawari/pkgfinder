@@ -1,0 +1,11 @@
+pkgfinder.org {
+    redir https://www.{host}{uri}
+}
+
+www.pkgfinder.org {
+    reverse_proxy ui:80
+}
+
+api.pkgfinder.org {
+    reverse_proxy api:4000
+}
