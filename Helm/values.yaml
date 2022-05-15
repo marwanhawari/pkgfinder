@@ -1,0 +1,24 @@
+# Default values for pkgfinder.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+ui:
+  name: pkgfinder-ui
+  image: marwanhawari/pkgfinder-ui
+  replicas: 2
+  memory: "128Mi"
+  cpu: "500m"
+  servicePort: 80
+  containerPort: 80
+  nodePort: 30100
+
+api:
+  name: pkgfinder-api
+  image: marwanhawari/pkgfinder-api
+  replicas: 2
+  memory: "128Mi"
+  cpu: "500m"
+  servicePort: 4000
+  containerPort: 4000
+  nodePort: 30200
+

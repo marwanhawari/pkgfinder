@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.ui.name }}-deployment
+  labels:
+    app: {{ .Values.ui.name }}
+spec:
+  replicas: {{ .Values.ui.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.ui.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.ui.name }}
+    spec:
+      containers:
+      - name: {{ .Values.ui.name }}
+        image: {{ .Values.ui.image }}
+        resources:
+          limits:
+            memory: {{ .Values.ui.memory | quote }}
+            cpu: {{ .Values.ui.cpu | quote }}
+        ports:
+        - containerPort: {{ .Values.ui.containerPort }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.ui.name }}-svc
+spec:
+  type: NodePort
+  selector:
+    app: {{ .Values.ui.name }}
+  ports:
+  - port: {{ .Values.ui.servicePort }}
+    targetPort: {{ .Values.ui.containerPort }}
+    nodePort: {{ .Values.ui.nodePort }}
